@@ -36,13 +36,22 @@
 	<!-- ANDROID CONFIGURATION -->
 	<platform name="android">
 		<preference name="ANDROID_DEFAULT_NOTIFICATION_ICON" default="@mipmap/ic_launcher" />
-		<preference name="ANDROID_FCM_VERSION" default="21.0.0" />
-		<preference name="ANDROID_FIREBASE_BOM_VERSION" default="26.0.0" />
+		<preference name="ANDROID_FCM_VERSION" default="23.0.8" />
+		<preference name="ANDROID_FIREBASE_BOM_VERSION" default="29.0.1" />
 		<preference name="ANDROID_GOOGLE_SERVICES_VERSION" default="4.3.4" />
 		<preference name="ANDROID_GRADLE_TOOLS_VERSION" default="4.1.0" />
 
+		<config-file target="AndroidManifest.xml" parent="/manifest">
+			<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+		</config-file>
 		<config-file target="AndroidManifest.xml" parent="/manifest/application">
-			<activity android:name="com.gae.scaffolder.plugin.FCMPluginActivity" android:launchMode="singleTop">
+			<activity
+					android:name="com.gae.scaffolder.plugin.FCMPluginActivity"
+					android:noHistory="true"
+					android:excludeFromRecents="true"
+					android:taskAffinity=""
+					android:theme="@android:style/Theme.Translucent.NoTitleBar"
+					android:exported="true">
 				<intent-filter>
 					<action android:name="FCM_PLUGIN_ACTIVITY" />
 					<category android:name="android.intent.category.DEFAULT" />
@@ -50,7 +59,8 @@
 			</activity>
 			<service 
 				android:name="com.gae.scaffolder.plugin.MyFirebaseMessagingService"
-				android:stopWithTask="false">
+				android:stopWithTask="false"
+				android:exported="false">
 				<intent-filter>
 					<action android:name="com.google.firebase.MESSAGING_EVENT"/>
 				</intent-filter>
@@ -81,6 +91,7 @@
 	<!-- IOS CONFIGURATION -->
 	<platform name="ios">
 		<preference name="IOS_FIREBASE_MESSAGING_VERSION" default="~> 7.4.0" />
+		<preference name="IOS_GOOGLE_UTILITIES_VERSION" default="7.11.5" />
 		<config-file target="config.xml" parent="/*">
 			<feature name="FCMPlugin">
 				<param name="ios-package" value="FCMPlugin"/>
@@ -124,6 +135,7 @@
 			</config>
 			<pods>
 				<pod name="Firebase/Messaging" spec="$IOS_FIREBASE_MESSAGING_VERSION"/>
+				<pod name="GoogleUtilities" spec="$IOS_GOOGLE_UTILITIES_VERSION"/>
 			</pods>
 		</podspec>
 	</platform>
@@ -131,5 +143,4 @@
 	<!-- COPY FCM CONFIG FILES TO PLATFORM BEFORE COMPILING -->
 	<hook src="scripts/copy_google_service_files.js" type="after_prepare" />
 	<hook src="scripts/copy_google_service_files.js" type="after_plugin_add" />
-	<hook src="scripts/install_ionic_dependencies.bat" type="after_plugin_install" />
 </plugin>

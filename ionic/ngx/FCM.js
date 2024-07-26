@@ -19,7 +19,7 @@ var __decorate =
     }
 import { Injectable } from '@angular/core'
 import { Subject } from 'rxjs'
-import { IonicNativePlugin } from '@ionic-native/core'
+import { IonicNativePlugin } from '@awesome-cordova-plugins/core'
 
 function FCM() {}
 FCM.prototype.clearAllNotifications = function () {

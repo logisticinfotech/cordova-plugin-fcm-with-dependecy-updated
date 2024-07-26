@@ -83,26 +83,6 @@ FCMNotificationCenterDelegate *notificationCenterDelegate;
     }
     apnsToken = deviceToken;
     NSLog(@"Device APNS Token: %@", deviceToken);
-
-    [[FIRMessaging messaging] tokenWithCompletion:^(NSString *deviceToken, NSError *error) {
-      if (error != nil) {
-        NSLog(@"Error getting FCM registration token: %@", error);
-      } else {
-        NSLog(@"FCM registration token: %@", deviceToken);
-          if(deviceToken == nil) {
-              fcmToken = nil;
-              [FCMPlugin.fcmPlugin notifyFCMTokenRefresh:nil];
-              return;
-          }
-          // Notify about received token.
-          NSDictionary *dataDict = [NSDictionary dictionaryWithObject:deviceToken forKey:@"token"];
-          [[NSNotificationCenter defaultCenter] postNotificationName:@"FCMToken" object:nil userInfo:dataDict];
-          fcmToken = deviceToken;
-          [FCMPlugin.fcmPlugin notifyFCMTokenRefresh:deviceToken];
-          [self connectToFcm];
-      }
-    }];
-    
     if (@available(iOS 10, *)) {
         return;
     }
