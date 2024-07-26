@@ -45,6 +45,6 @@
         "tslint-microsoft-contrib": "^6.2.0"
     },
     "dependencies": {
-        "typescript": "^4.1.3"
+        "typescript": "~5.4.0"
     }
 }
