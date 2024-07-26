@@ -34,8 +34,8 @@
         "typescript": "^3.9.3"
     },
     "dependencies": {
-        "@angular/core": "^9.1.9",
-        "@ionic-native/core": "^5.26.0",
-        "rxjs": "^6.5.5"
+        "@angular/core": "^18.0.0",
+        "@awesome-cordova-plugins/core": "^6.8.0",
+        "rxjs": "~7.8.0"
     }
 }
